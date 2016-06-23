@@ -1,0 +1,12 @@
+Structure:
+  challenges/<group>/<challenge name>/
+    setup -- Set of commands to run to set up the test (run these within temp workdir)
+    test -- Commands to run to check whether test passed (return 0 on success)
+
+Procedure for player:
+  - Run play, shows what challenges completed, what not.
+  - Run play with <group>/<challenge name> to give details of challenge and prepare a play directory (using setup)
+  - Run play with <group>/<challenge name> and path to solution file to try solution
+
+Note:
+  - Generalise test command, have general approach (source, target, running solve with argument of source should produce target)
