@@ -1,35 +1,55 @@
 #! /usr/bin/env bash
+# Abort on errors
+set -e
 
-func test_data_process(){
+func get_challenge_path(){
+    challenge_group=${1}
+    challenge_number=${2}
+
+    echo "challenges/${challenge_group}/${challenge_number}"
+}
+
+func solved(){
+    challenge_group=${1}
+    challenge_number=${2}
+    solution_path=${3}
+
+    echo "${challenge}/${challenge_number}:${solution_path}" >> .results
+    echo "Well done! You passed ${challenge_group} challenge ${challenge_number}!"
+}
+
+func failed(){
+    challenge_group=${1}
+    challenge_number=${2}
+
+    echo "Sorry, you didn't pass ${challenge_group} challenge ${challenge_number} this time. Try again soon!"
+}
+
+func test_data_processing_challenge_attempt(){
     challenge_group=${1}
     challenge_number=${2}
     solution_file_path=${3}
 
     # Set up test environment
     test_path=".test/${challenge_group}/${challenge_number}"
-    challenge_path=".test/${challenge_group}/${challenge_number}"
+    challenge_path="$(get_challenge_path ${challenge_group} ${challenge_number})"
     rm -rf ${test_path}
     mkdir -p ${test_path}
     cp -r "${challenge_path}/*" ${test_path}
     cd ${test_path}
-    # TODO: If exists, execute setup
+    if [[ -x setup ]]; then
+        setup
+    fi
 
     chmod +x ${solution_file_path}
-    # TODO: Handle this command 'winning' or 'losing'
-    sdiff <(cat start | ${solution_file_path}) finish
+    echo "Comparing input and output data:"
+    if sdiff <(cat start | ${solution_file_path}) finish; then
+        solved ${challenge_group} ${challenge_number} ${solution_file_path}
+    else
+        failed ${challenge_group} ${challenge_number}
+    fi
 }
-# Prepare test directory
-rm -rf test/cut/1
-mkdir -p test/cut/1
-cp challenges/cut/1/* test/cut/1/
-cp ${1} test/cut/1/solve
-chmod +x test/cut/1/solve
-cd test/cut/1
 
-./setup
-if sdiff <(./solve) target; then
-    echo "Cut challenge 1 passed!"
-else
-    echo "Cut challenge 1 FAILED!"
-    echo "Your output is above on the left, compared with the target on the right."
-fi
+# TODO: Function to find all challenges and list them with names (first line of readme), with solved status
+# TODO: Function to setup practise directory
+# TODO: Help text
