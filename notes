@@ -1,8 +1,9 @@
 Structure:
   challenges/<group>/<challenge name>/
-    setup -- Set of commands to run to set up the test (run these within temp workdir)
-    test -- Commands to run to check whether test passed (return 0 on success)
-
+    setup -- (optional) Set of commands to run to set up the test (run these within temp workdir)
+    start -- (optional) starting data for data processing (e.g. cut) commands
+    finish -- (optional) expected result for data processing (e.g. cut) commands
+    README -- The details of this challenge, with first line being challenge name
 Procedure for player:
   - Run play, shows what challenges completed, what not.
   - Run play with <group>/<challenge name> to give details of challenge and prepare a play directory (using setup)
