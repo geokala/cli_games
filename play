@@ -2,30 +2,41 @@
 # Abort on errors
 set -e
 
-func get_challenge_path(){
+get_challenge_path(){
     challenge_group=${1}
     challenge_number=${2}
 
     echo "challenges/${challenge_group}/${challenge_number}"
 }
 
-func solved(){
+is_solved(){
+    challenge_group=${1}
+    challenge_number=${2}
+
+    # Make sure .results exists on first run
+    touch .results
+    if grep "${challenge_group}/${challenge_number}" .results; then
+        echo "(solved)"
+    fi
+}
+
+solved(){
     challenge_group=${1}
     challenge_number=${2}
     solution_path=${3}
 
-    echo "${challenge}/${challenge_number}:${solution_path}" >> .results
+    echo "${challenge_group}/${challenge_number}:${solution_path}" >> .results
     echo "Well done! You passed ${challenge_group} challenge ${challenge_number}!"
 }
 
-func failed(){
+failed(){
     challenge_group=${1}
     challenge_number=${2}
 
     echo "Sorry, you didn't pass ${challenge_group} challenge ${challenge_number} this time. Try again soon!"
 }
 
-func test_data_processing_challenge_attempt(){
+test_data_processing_challenge_attempt(){
     challenge_group=${1}
     challenge_number=${2}
     solution_file_path=${3}
@@ -50,6 +61,28 @@ func test_data_processing_challenge_attempt(){
     fi
 }
 
-# TODO: Function to find all challenges and list them with names (first line of readme), with solved status
+get_challenge_name(){
+    challenge_group=${1}
+    challenge_number=${2}
+
+    challenge_path=$(get_challenge_path ${challenge_group} ${challenge_number})
+    readme_path="${challenge_path}/README"
+    challenge_name=$(cat ${readme_path} | head -n1)
+    echo ${challenge_name}
+}
+
+get_all_challenges(){
+    challenge_groups=$(ls challenges | sort)
+    echo "Challenges by group:"
+    for group in ${challenge_groups}; do
+        echo "  ${group}"
+        challenges=$(ls challenges/${group} | sort -g)
+        for challenge in ${challenges}; do
+            echo "    $(is_solved ${group} ${challenge})${challenge}: $(get_challenge_name ${group} ${challenge})"
+        done
+    done
+}
+
+get_all_challenges
 # TODO: Function to setup practise directory
 # TODO: Help text
