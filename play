@@ -89,13 +89,19 @@ make_practise(){
 
     challenge_path="$(get_challenge_path ${challenge_group} ${challenge_number})"
     practise_path="practise/${challenge_group}/${challenge_number}"
+
+    if [[ -d ${practise_path} ]]; then
+        echo "Practise directory for challenge ${challenge_number} of group ${challenge_group} already exists in: ${practise_path}"
+        return 0
+    fi
+
     if [[ -d ${challenge_path} ]]; then
         mkdir -p ${practise_path}
         cp -r ${challenge_path}/* ${practise_path}/
         if [[ -x ${practise_path}/setup ]]; then
             cd ${practise_path}
             ./setup
-            cd -
+            cd - >/dev/null
         fi
         echo "Practise directory for challenge ${challenge_number} of group ${challenge_group} created: ${practise_path}"
     else
