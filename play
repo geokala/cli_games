@@ -83,6 +83,32 @@ get_all_challenges(){
     done
 }
 
+make_practise(){
+    challenge_group=${1}
+    challenge_number=${2}
+
+    challenge_path="$(get_challenge_path ${challenge_group} ${challenge_number})"
+    practise_path="practise/${challenge_group}/${challenge_number}"
+    if [[ -d ${challenge_path} ]]; then
+        mkdir -p ${practise_path}
+        cp -r ${challenge_path}/* ${practise_path}/
+        if [[ -x ${practise_path}/setup ]]; then
+            cd ${practise_path}
+            ./setup
+            cd -
+        fi
+        echo "Practise directory for challenge ${challenge_number} of group ${challenge_group} created: ${practise_path}"
+    else
+        if [[ -d challenges/${challenge_group} ]]; then
+            echo "Could not find challenge ${challenge_number} in group ${challenge_group}"
+        else
+            echo "Could not find challenge group ${challenge_group}"
+        fi
+        return 1
+    fi
+}
+
 get_all_challenges
-# TODO: Function to setup practise directory
+make_practise cut 1
 # TODO: Help text
+# TODO: Menu-ish stuff
