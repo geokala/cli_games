@@ -71,16 +71,30 @@ get_challenge_name(){
     echo ${challenge_name}
 }
 
-get_all_challenges(){
+get_challenges(){
+    filter="$@"
     challenge_groups=$(ls challenges | sort)
     echo "Challenges by group:"
+
+    displayed_something=false
+    if [[ -z "${filter}" ]]; then
+        # If we're not filtering, show everything
+        filter=${challenge_groups}
+    fi
     for group in ${challenge_groups}; do
-        echo "  ${group}"
-        challenges=$(ls challenges/${group} | sort -g)
-        for challenge in ${challenges}; do
-            echo "    $(is_solved ${group} ${challenge})${challenge}: $(get_challenge_name ${group} ${challenge})"
-        done
+        # Display this group if it's in the filter list
+        if [[ ${filter} =~ (^|[[:space:]])"${group}"($|[[:space:]]) ]]; then
+            echo "  ${group}"
+            challenges=$(ls challenges/${group} | sort -g)
+            for challenge in ${challenges}; do
+                echo "    $(is_solved ${group} ${challenge})${challenge}: $(get_challenge_name ${group} ${challenge})"
+            done
+            displayed_something=true
+        fi
     done
+    if [[ ${displayed_something} == 'false' ]]; then
+        echo "No challenges found for group(s): ${filter}"
+    fi
 }
 
 make_practise(){
@@ -114,7 +128,12 @@ make_practise(){
     fi
 }
 
-get_all_challenges
-make_practise cut 1
+#get_all_challenges
+#make_practise cut 1
 # TODO: Help text
 # TODO: Menu-ish stuff
+
+case "${1}" in
+  list) shift
+        get_challenges $*
+esac
