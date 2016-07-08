@@ -118,6 +118,7 @@ make_practise(){
             cd - >/dev/null
         fi
         echo "Practise directory for challenge ${challenge_number} of group ${challenge_group} created: ${practise_path}"
+        cat ${practise_path}/README
     else
         if [[ -d challenges/${challenge_group} ]]; then
             echo "Could not find challenge ${challenge_number} in group ${challenge_group}"
@@ -136,4 +137,11 @@ make_practise(){
 case "${1}" in
   list) shift
         get_challenges $*
+        ;;
+  practi[cs]e) make_practise $2 $3
+               ;;
+# TODO: attempt (command to see if we passed a challenge)
+# TODO: Then fix cut 1 so its README is correct and scrap its test file
+# TODO: Then add help for menu
+# TODO: Then add cut 2
 esac
