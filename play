@@ -129,11 +129,7 @@ make_practise(){
     fi
 }
 
-#get_all_challenges
-#make_practise cut 1
-# TODO: Help text
-# TODO: Menu-ish stuff
-
+# TODO: cd ${0}'s dir
 case "${1}" in
   list) shift
         get_challenges $*
