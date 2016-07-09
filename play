@@ -2,6 +2,8 @@
 # Abort on errors
 set -e
 
+cli_games_path=$(pwd)
+
 get_challenge_path(){
     challenge_group=${1}
     challenge_number=${2}
@@ -15,7 +17,7 @@ is_solved(){
 
     # Make sure .results exists on first run
     touch .results
-    if grep "${challenge_group}/${challenge_number}" .results; then
+    if grep "${challenge_group}/${challenge_number}" .results 2>&1 >/dev/null; then
         echo "(solved)"
     fi
 }
@@ -25,7 +27,7 @@ solved(){
     challenge_number=${2}
     solution_path=${3}
 
-    echo "${challenge_group}/${challenge_number}:${solution_path}" >> .results
+    echo "${challenge_group}/${challenge_number}:${solution_path}" >> ${cli_games_path}/.results
     echo "Well done! You passed ${challenge_group} challenge ${challenge_number}!"
 }
 
@@ -46,10 +48,10 @@ test_data_processing_challenge_attempt(){
     challenge_path="$(get_challenge_path ${challenge_group} ${challenge_number})"
     rm -rf ${test_path}
     mkdir -p ${test_path}
-    cp -r "${challenge_path}/*" ${test_path}
+    cp -r "${challenge_path}"/* ${test_path}
     cd ${test_path}
     if [[ -x setup ]]; then
-        setup
+        ./setup
     fi
 
     chmod +x ${solution_file_path}
@@ -117,8 +119,8 @@ make_practise(){
             ./setup
             cd - >/dev/null
         fi
-        echo "Practise directory for challenge ${challenge_number} of group ${challenge_group} created: ${practise_path}"
         cat ${practise_path}/README
+        echo "Practise directory for challenge ${challenge_number} of group ${challenge_group} created: ${practise_path}"
     else
         if [[ -d challenges/${challenge_group} ]]; then
             echo "Could not find challenge ${challenge_number} in group ${challenge_group}"
@@ -136,7 +138,8 @@ case "${1}" in
         ;;
   practi[cs]e) make_practise $2 $3
                ;;
-# TODO: attempt (command to see if we passed a challenge)
+  attempt) test_data_processing_challenge_attempt $2 $3 $4
+           ;;
 # TODO: Then fix cut 1 so its README is correct and scrap its test file
 # TODO: Then add help for menu
 # TODO: Then add cut 2

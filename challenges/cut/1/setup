@@ -1,5 +1,5 @@
 echo 'i|like|cake
-but|not|lassi' > source
+but|not|lassi' > start
 
 echo 'cake
-lassi' > target
+lassi' > finish
