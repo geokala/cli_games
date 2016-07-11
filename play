@@ -140,7 +140,31 @@ case "${1}" in
                ;;
   attempt) test_data_processing_challenge_attempt $2 $3 $4
            ;;
+  *) echo "CLI games- play games to improve your skills with CLI utilities."
+     echo "  ${0} list -- This will list available games."
+     echo "               It will also show you which games you have completed."
+     echo "               The games are grouped by the utility they use."
+     echo "               Within each group they are numbered."
+     echo "               If you need to read more about a utility, try "
+     echo "               man <challenge group (command)>"
+     echo ""
+     echo "  ${0} practise <challenge group> <challenge number>"
+     echo "            -- This will set up a practise directory for you to "
+     echo "               attempt different solutions to specific challenges."
+     echo "               e.g. to practise the first 'cut' challenge:"
+     echo "               ${0} practise cut 1"
+     echo ""
+     echo "  ${0} attempt <challenge group> <challenge number> <solution file>"
+     echo "            -- This will test your attempted solution to a given"
+     echo "               challenge."
+     echo "               The solution file must be executable and should be"
+     echo "               created in such a way that it will create the right"
+     echo "               output (in the 'finish' file) when the 'start' file"
+     echo "               is piped to it."
+     echo "               To test a solution by hand you would compare the"
+     echo "               output of 'cat start | ./my_solution' with the"
+     echo "               contents of the 'finish' file."
 # TODO: Then fix cut 1 so its README is correct and scrap its test file
-# TODO: Then add help for menu
 # TODO: Then add cut 2
+# TODO: Then add find 1
 esac
