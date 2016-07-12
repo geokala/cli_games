@@ -41,7 +41,7 @@ failed(){
 test_data_processing_challenge_attempt(){
     challenge_group=${1}
     challenge_number=${2}
-    solution_file_path=${3}
+    solution_file_path="$(pwd)/${3}"
 
     # Set up test environment
     test_path=".test/${challenge_group}/${challenge_number}"
@@ -107,6 +107,8 @@ make_practise(){
     practise_path="practise/${challenge_group}/${challenge_number}"
 
     if [[ -d ${practise_path} ]]; then
+        cat ${practise_path}/README
+        echo "=================================================="
         echo "Practise directory for challenge ${challenge_number} of group ${challenge_group} already exists in: ${practise_path}"
         return 0
     fi
@@ -120,6 +122,7 @@ make_practise(){
             cd - >/dev/null
         fi
         cat ${practise_path}/README
+        echo "=================================================="
         echo "Practise directory for challenge ${challenge_number} of group ${challenge_group} created: ${practise_path}"
     else
         if [[ -d challenges/${challenge_group} ]]; then
@@ -164,7 +167,6 @@ case "${1}" in
      echo "               To test a solution by hand you would compare the"
      echo "               output of 'cat start | ./my_solution' with the"
      echo "               contents of the 'finish' file."
-# TODO: Then fix cut 1 so its README is correct and scrap its test file
 # TODO: Then add cut 2
 # TODO: Then add find 1
 esac
