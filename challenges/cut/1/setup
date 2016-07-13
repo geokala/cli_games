@@ -1,5 +1,5 @@
-echo 'i|like|cake
-but|not|lassi' > start
+echo -e "getting\tthis\twritten
+started\tquite\tsimply" > start
 
-echo 'cake
-lassi' > finish
+echo 'getting
+started' > finish

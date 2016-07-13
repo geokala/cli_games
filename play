@@ -167,6 +167,5 @@ case "${1}" in
      echo "               To test a solution by hand you would compare the"
      echo "               output of 'cat start | ./my_solution' with the"
      echo "               contents of the 'finish' file."
-# TODO: Then add cut 2
 # TODO: Then add find 1
 esac
