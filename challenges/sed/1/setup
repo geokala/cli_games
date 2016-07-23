@@ -1,0 +1,5 @@
+echo -e "This input is wrong.
+It should be changed to be right." > start
+
+echo 'This input is right.
+It should be changed to be right.' > finish

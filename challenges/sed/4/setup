@@ -1,0 +1,8 @@
+echo "In the beginning there was nothing.
+Everything was there.
+But everything was nothing.
+In the end it is all the same as the beginning." > start
+
+echo 'Everything was there.
+But everything was nothing.
+In the end it is all the same as the beginning.' > finish
