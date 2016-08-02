@@ -1,0 +1,3 @@
+echo 'I: scripter' > start
+
+echo 'I, scripter' > finish
