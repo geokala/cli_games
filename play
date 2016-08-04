@@ -26,9 +26,19 @@ solved(){
     challenge_group=${1}
     challenge_number=${2}
     solution_path=${3}
+    par=${4}
+    characters_used=${5}
 
-    echo "${challenge_group}/${challenge_number}:${solution_path}" >> ${cli_games_path}/.results
+    echo "${challenge_group}/${challenge_number}:${solution_path}:${characters_used}" >> ${cli_games_path}/.results
     echo "Well done! You passed ${challenge_group} challenge ${challenge_number}!"
+    echo -n "You used ${characters_used} characters."
+    if [[ ${par} -lt ${characters_used} ]]; then
+        echo " The target was ${par}."
+    elif [[ ${par} -eq ${characters_used} ]]; then
+        echo " Well done, you met the target!"
+    else
+        echo " Excellent! You beat the target of ${par}!"
+    fi
 }
 
 failed(){
@@ -53,11 +63,13 @@ test_data_processing_challenge_attempt(){
     if [[ -x setup ]]; then
         ./setup
     fi
+    par=$(cat par)
 
     chmod +x ${solution_file_path}
     echo "Comparing input and output data:"
     if sdiff <(cat start | ${solution_file_path}) finish; then
-        solved ${challenge_group} ${challenge_number} ${solution_file_path}
+        characters=$(wc -c ${solution_file_path} | cut -d" " -f1)
+        solved ${challenge_group} ${challenge_number} ${solution_file_path} ${par} ${characters}
     else
         failed ${challenge_group} ${challenge_number}
     fi

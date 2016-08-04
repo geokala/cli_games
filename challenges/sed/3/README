@@ -4,8 +4,7 @@ You should use sed to make the input from the 'start' file output the
 same as the contents of the 'finish' file.
 
 e.g.
-echo '#! /usr/bin/env bash
-sed s/something/else/' > mysolution
+echo 'sed s/something/else/' > mysolution
 cat start | ./mysolution
 
 The output of this should be the same as the contents of 'finish'.
