@@ -18,7 +18,8 @@ is_solved(){
     # Make sure .results exists on first run
     touch .results
     if grep "${challenge_group}/${challenge_number}" .results 2>&1 >/dev/null; then
-        echo "(solved)"
+        score=$(grep "${challenge_group}/${challenge_number}" .results | cut -d":" -f3 | sort | tail -n1)
+        echo "(score: ${score})"
     fi
 }
 
@@ -101,7 +102,8 @@ get_challenges(){
             echo "  ${group}"
             challenges=$(ls challenges/${group} | sort -g)
             for challenge in ${challenges}; do
-                echo "    $(is_solved ${group} ${challenge})${challenge}: $(get_challenge_name ${group} ${challenge})"
+                par=$(cat $(get_challenge_path ${group} ${challenge})/par)
+                echo "    $(is_solved ${group} ${challenge}) ${challenge}: $(get_challenge_name ${group} ${challenge}) Par: ${par}"
             done
             displayed_something=true
         fi
@@ -179,5 +181,4 @@ case "${1}" in
      echo "               To test a solution by hand you would compare the"
      echo "               output of 'cat start | ./my_solution' with the"
      echo "               contents of the 'finish' file."
-# TODO: Then add find 1
 esac

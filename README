@@ -1,0 +1,11 @@
+Welcome to the CLI games, a set of small challenges involving command line utilities.
+
+It is built to work with bash and utilities commonly present on Linux systems (primarily Ubuntu).
+
+To play, run the play command (./play) and help for the different options will be shown.
+
+Note when listing the available challenges you will see the 'par' for each challenge- this is the amount of characters (plus a newline) in which a challenge can be reasonably completed. When you supply your solution file, this file will be tested and if it succeeds then its score (the result of 'wc -c' being run on the file) will be added to the results.
+
+Yes, it's trivial to cheat at this- it's not intended to provide for olympic level competition, but instead to invite you to explore command line utilities that you may not have used a great deal and let you find functionality for those utilities.
+
+Good luck!
