@@ -1,0 +1,8 @@
+echo -e "hay
+hay
+needle
+hay
+hay
+hay" > start
+
+echo 'needle' > finish
