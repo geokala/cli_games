@@ -60,11 +60,12 @@ test_data_processing_challenge_attempt(){
     rm -rf ${test_path}
     mkdir -p ${test_path}
     cp -r "${challenge_path}"/* ${test_path}
+    cp "${challenge_path}"/.par ${test_path}
     cd ${test_path}
     if [[ -x setup ]]; then
         ./setup
     fi
-    par=$(cat par)
+    par=$(cat .par)
 
     chmod +x ${solution_file_path}
     echo "Comparing input and output data:"
@@ -102,7 +103,7 @@ get_challenges(){
             echo "  ${group}"
             challenges=$(ls challenges/${group} | sort -g)
             for challenge in ${challenges}; do
-                par=$(cat $(get_challenge_path ${group} ${challenge})/par)
+                par=$(cat $(get_challenge_path ${group} ${challenge})/.par)
                 echo "    $(is_solved ${group} ${challenge}) ${challenge}: $(get_challenge_name ${group} ${challenge}) Par: ${par}"
             done
             displayed_something=true
