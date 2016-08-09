@@ -1,0 +1,16 @@
+echo -e "hay
+hay
+needle
+straw
+hay
+hay
+sticks
+hay" > start
+
+echo -e "hay
+hay
+straw
+hay
+hay
+sticks
+hay" > finish
