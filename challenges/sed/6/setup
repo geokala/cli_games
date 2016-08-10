@@ -1,0 +1,11 @@
+echo "Happy
+Happy
+Happy
+Happy
+Happy" > start
+
+echo "Happy
+Happy
+Hazy
+Hazy
+Happy" > finish
