@@ -1,0 +1,10 @@
+echo -e "hay
+hay
+needle
+straw
+hay
+hay
+sticks
+hay" > start
+
+echo "5" > finish

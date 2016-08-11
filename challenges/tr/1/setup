@@ -1,0 +1,3 @@
+echo "Bake" > start
+
+echo 'Cake' > finish
