@@ -1,0 +1,3 @@
+echo "I knoew how to avoid making typos." > start
+
+echo 'I know how to avoid making typos.' > finish
