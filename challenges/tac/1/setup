@@ -1,0 +1,7 @@
+echo -e "This is at the end
+With this in the right order
+After we finish" > start
+
+echo 'After we finish
+With this in the right order
+This is at the end' > finish
