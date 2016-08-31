@@ -69,7 +69,7 @@ test_data_processing_challenge_attempt(){
 
     chmod +x ${solution_file_path}
     echo "Comparing input and output data:"
-    if sdiff <(cat start | ${solution_file_path}) finish; then
+    if sdiff <(cat start | ${solution_file_path}) finish && echo ""; then
         characters=$(wc -c ${solution_file_path} | cut -d" " -f1)
         solved ${challenge_group} ${challenge_number} ${solution_file_path} ${par} ${characters}
     else
