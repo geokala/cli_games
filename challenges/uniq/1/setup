@@ -1,0 +1,33 @@
+echo "Ark contents:
+cat
+cat
+dog
+dog
+sheep
+sheep
+cow
+cow
+wolf
+wolf
+flea
+flea
+cat
+dog
+sheep
+cow
+wolf
+flea" > start
+
+echo 'Ark contents:
+cat
+dog
+sheep
+cow
+wolf
+flea
+cat
+dog
+sheep
+cow
+wolf
+flea' > finish

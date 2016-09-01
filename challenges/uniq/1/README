@@ -1,0 +1,16 @@
+Just enough animals
+
+You should use uniq to make the input from the 'start' file output the
+same as the contents of the 'finish' file.
+
+e.g.
+echo 'uniq' > mysolution
+cat start | ./mysolution
+
+The output of this should be the same as the contents of 'finish'.
+
+You can test this by running:
+diff <(cat start | ./mysolution) finish
+This will output any lines that differ.
+For an alternative, you might also wish to look at 'man sdiff'.
+This can be used as a drop in replacement for diff in this command.
