@@ -1,0 +1,1 @@
+cut works with a tab as a delimiter by default, so you can just specify your fields.
