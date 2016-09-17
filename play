@@ -23,6 +23,15 @@ is_solved(){
     fi
 }
 
+get_hint(){
+    challenge_group=${1}
+    challenge_number=${2}
+    challenge_path="${cli_games_path}/$(get_challenge_path ${challenge_group} ${challenge_number})"
+
+    hint_path="${challenge_path}/HINT"
+    cat ${hint_path}
+}
+
 solved(){
     challenge_group=${1}
     challenge_number=${2}
@@ -32,6 +41,7 @@ solved(){
 
     echo "${challenge_group}/${challenge_number}:${solution_path}:${characters_used}" >> ${cli_games_path}/.results
     echo "Well done! You passed ${challenge_group} challenge ${challenge_number}!"
+    echo "Does the hint make sense now? "'"'"$(get_hint ${challenge_group} ${challenge_number})"'"'""
     echo -n "You used ${characters_used} characters."
     if [[ ${par} -lt ${characters_used} ]]; then
         echo " The target was ${par}."
@@ -156,6 +166,8 @@ case "${1}" in
         ;;
   practi[cs]e) make_practise $2 $3
                ;;
+  hint) get_hint $2 $3
+        ;;
   attempt) test_data_processing_challenge_attempt $2 $3 $4
            ;;
   *) echo "CLI games- play games to improve your skills with CLI utilities."
@@ -171,6 +183,9 @@ case "${1}" in
      echo "               attempt different solutions to specific challenges."
      echo "               e.g. to practise the first 'cut' challenge:"
      echo "               ${0} practise cut 1"
+     echo ""
+     echo "  ${0} hint <challenge group> <challenge number>"
+     echo "            -- Get a hint about the specified challenge."
      echo ""
      echo "  ${0} attempt <challenge group> <challenge number> <solution file>"
      echo "            -- This will test your attempted solution to a given"
