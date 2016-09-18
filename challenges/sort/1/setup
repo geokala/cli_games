@@ -1,0 +1,11 @@
+echo "boat
+alphabet
+editor
+diamond
+furball" > start
+
+echo 'alphabet
+boat
+diamond
+editor
+furball' > finish
