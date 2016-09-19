@@ -1,0 +1,11 @@
+echo '#! /usr/bin/env python
+import string
+import random
+
+print(random.choice(string.uppercase))))))' > start
+
+echo '#! /usr/bin/env python
+import random
+import string
+
+print(random.choice(string.uppercase))))))' > finish

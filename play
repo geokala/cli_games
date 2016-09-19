@@ -59,10 +59,24 @@ failed(){
     echo "Sorry, you didn't pass ${challenge_group} challenge ${challenge_number} this time. Try again soon!"
 }
 
-test_data_processing_challenge_attempt(){
+test_challenge_attempt(){
     challenge_group=${1}
     challenge_number=${2}
     solution_file_path="$(pwd)/${3}"
+
+    challenge_path="$(get_challenge_path ${challenge_group} ${challenge_number})"
+
+    if [[ -x $(pwd)/${challenge_path}/.vimchallenge ]]; then
+        test_vim_challenge_attempt ${challenge_group} ${challenge_number} ${solution_file_path}
+    else
+        test_data_processing_challenge_attempt ${challenge_group} ${challenge_number} ${solution_file_path}
+    fi
+}
+
+test_data_processing_challenge_attempt(){
+    challenge_group=${1}
+    challenge_number=${2}
+    solution_file_path="${3}"
 
     # Set up test environment
     test_path=".test/${challenge_group}/${challenge_number}"
@@ -80,6 +94,34 @@ test_data_processing_challenge_attempt(){
     chmod +x ${solution_file_path}
     echo "Comparing input and output data:"
     if sdiff <(cat start | ${solution_file_path}) finish && echo ""; then
+        characters=$(wc -c ${solution_file_path} | cut -d" " -f1)
+        solved ${challenge_group} ${challenge_number} ${solution_file_path} ${par} ${characters}
+    else
+        failed ${challenge_group} ${challenge_number}
+    fi
+}
+
+test_vim_challenge_attempt(){
+    challenge_group=${1}
+    challenge_number=${2}
+    solution_file_path="${3}"
+
+    # Set up test environment
+    test_path=".test/${challenge_group}/${challenge_number}"
+    challenge_path="$(get_challenge_path ${challenge_group} ${challenge_number})"
+    rm -rf ${test_path}
+    mkdir -p ${test_path}
+    cp -r "${challenge_path}"/* ${test_path}
+    cp "${challenge_path}"/.par ${test_path}
+    cd ${test_path}
+    if [[ -x setup ]]; then
+        ./setup
+    fi
+    par=$(cat .par)
+
+    echo "Comparing input and output data:"
+    vim -S ${solution_file_path} start
+    if sdiff start finish && echo ""; then
         characters=$(wc -c ${solution_file_path} | cut -d" " -f1)
         solved ${challenge_group} ${challenge_number} ${solution_file_path} ${par} ${characters}
     else
@@ -168,7 +210,7 @@ case "${1}" in
                ;;
   hint) get_hint $2 $3
         ;;
-  attempt) test_data_processing_challenge_attempt $2 $3 $4
+  attempt) test_challenge_attempt $2 $3 $4
            ;;
   *) echo "CLI games- play games to improve your skills with CLI utilities."
      echo "  ${0} list -- This will list available games."
