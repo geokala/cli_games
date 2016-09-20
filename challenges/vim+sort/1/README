@@ -3,6 +3,9 @@ Sort your imports out
 You should use sort with vim to make the input from the 'start' file output the
 same as the contents of the 'finish' file.
 
+You should always have :wq as the last line of the solution file, as this will
+save and then quit.
+
 e.g.
 echo ':.,+2s/a/b
 :wq' > mysolution
@@ -15,3 +18,6 @@ diff start finish
 This will output any lines that differ.
 For an alternative, you might also wish to look at 'man sdiff'.
 This can be used as a drop in replacement for diff in this command.
+
+If your command didn't work as hoped, you will need to run ./setup again to refresh
+the start file.

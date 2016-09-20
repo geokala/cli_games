@@ -1,11 +1,9 @@
-echo '#! /usr/bin/env python
-import string
-import random
+echo 'dog
+aardvark
+bat
+cat' > start
 
-print(random.choice(string.uppercase))))))' > start
-
-echo '#! /usr/bin/env python
-import random
-import string
-
-print(random.choice(string.uppercase))))))' > finish
+echo 'aardvark
+bat
+cat
+dog' > finish
