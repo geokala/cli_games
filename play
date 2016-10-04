@@ -145,9 +145,11 @@ get_challenges(){
     echo "Challenges by group:"
 
     displayed_something=false
+    show_next_step=false
     if [[ -z "${filter}" ]]; then
         # If we're not filtering, show everything
         filter=${challenge_groups}
+        show_next_step=true
     fi
     for group in ${challenge_groups}; do
         # Display this group if it's in the filter list
@@ -163,6 +165,12 @@ get_challenges(){
     done
     if [[ ${displayed_something} == 'false' ]]; then
         echo "No challenges found for group(s): ${filter}"
+    fi
+    if [[ ${show_next_step} == 'true' ]]; then
+        echo ""
+        echo "If you just want to get started, run:"
+        echo "${0} practise <challenge group> <challenge number>"
+        echo "e.g. ${0} practise cut 1"
     fi
 }
 
@@ -191,6 +199,11 @@ make_practise(){
         cat ${practise_path}/README
         echo "=================================================="
         echo "Practise directory for challenge ${challenge_number} of group ${challenge_group} created: ${practise_path}"
+        echo ""
+        echo "Once you've created your solution, run:"
+        echo "${0} attempt ${challenge_group} ${challenge_number} <solution file path>"
+        echo "e.g."
+        echo "${0} attempt ${challenge_group} ${challenge_number} ${practise_path}/solve"
     else
         if [[ -d challenges/${challenge_group} ]]; then
             echo "Could not find challenge ${challenge_number} in group ${challenge_group}"
@@ -239,4 +252,7 @@ case "${1}" in
      echo "               To test a solution by hand you would compare the"
      echo "               output of 'cat start | ./my_solution' with the"
      echo "               contents of the 'finish' file."
+     echo ""
+     echo "If you just want to get started, run:"
+     echo "${0} list"
 esac

@@ -5,6 +5,7 @@ same as the contents of the 'finish' file.
 
 e.g.
 echo 'tac -s=' > mysolution
+chmod +x ./mysolution
 cat start | ./mysolution
 
 The output of this should be the same as the contents of 'finish'.
