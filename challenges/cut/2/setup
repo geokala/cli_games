@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 echo 'i|like|cake
 but|not|lassi' > start
 

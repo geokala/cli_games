@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 echo 'it was not good' > start
 
 echo 'it was good' > finish

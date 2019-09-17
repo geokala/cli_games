@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 echo -e "This is at the end
 With this in the right order
 After we finish" > start

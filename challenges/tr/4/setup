@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 echo 'I sh@o^^%uld ^^be^£%!!:: a<>,/ble t&$%^&o rea^d ^£this^£^£^£^£.' > start
 
 echo 'I should be able to read this.' > finish
