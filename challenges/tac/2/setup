@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 echo -n "backwards. be to seems all This " > start
 
 echo -n 'This all seems to be backwards. ' > finish

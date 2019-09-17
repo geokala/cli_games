@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 echo -e "This input is wrong. It is wrong in many ways!
 It should be changed to be right." > start
 
